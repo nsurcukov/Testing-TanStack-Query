@@ -1,23 +1,46 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+// eslint.config.js
 
-export default defineConfig([
-  globalIgnores(['dist']),
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  { ignores: ['dist', 'node_modules'] }, // игнорируем папки
+
+  js.configs.recommended, // базовые JS правила
+
+  ...tseslint.configs.recommended, // TypeScript правила (распаковываем массив!)
+
   {
     files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.node, // для Vite и process.env
+      },
     },
-  },
-])
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      // React Hooks правила
+      ...reactHooks.configs.recommended.rules,
+
+      // React Refresh правило (для Vite Fast Refresh)
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+
+      // Опционально: полезные правила
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'off', // если часто используешь any
+      'no-console': 'warn',
+    },
+  }
+);

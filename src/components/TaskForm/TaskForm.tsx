@@ -1,10 +1,8 @@
-
-
-import { useState, FormEvent } from 'react';
-import style from './TaskForm.module.scss';
+import { FormEvent, useState } from 'react';
+import styles from './TaskForm.module.scss';
 
 interface TaskFormProps {
-  onSubmit: (title: string, description: string) => void;
+  onSubmit: (title: string, description?: string) => void;
   isLoading?: boolean;
 }
 
@@ -20,28 +18,32 @@ export default function TaskForm({ onSubmit, isLoading = false }: TaskFormProps)
   };
 
   return (
-    <form onSubmit={handleSubmit} className={style.form}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input
-        className={style.input}
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Название задачи"
+        placeholder="Заголовок поста"
         required
         disabled={isLoading}
+        className={styles.input}
       />
+
       <textarea
-        className={style.textarea}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        placeholder="Описание поста"
         rows={3}
         disabled={isLoading}
+        className={styles.textarea}
       />
+
       <button
         type="submit"
-        className={style.button}
+        disabled={isLoading || !title.trim()}
+        className={styles.button}
       >
-        Добавить задачу
+        {isLoading ? "Добавляем..." : "Опубликовать пост"}
       </button>
     </form>
   );

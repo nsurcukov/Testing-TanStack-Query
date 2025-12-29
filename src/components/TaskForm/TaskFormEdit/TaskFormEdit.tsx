@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import style from './TaskFormEdit.module.scss';
-import { Task } from '@/shared/types';
+import { Post } from '@/shared/types';
 
 interface TaskEditFormProps {
-    task: Task;
-    onSave: (task: Task) => void;
+    task: Post;
+    onSave: (task: Post) => void;
     onCancel: () => void;
     isLoading?: boolean;
 }
@@ -23,7 +23,6 @@ export default function TaskEditForm({
    
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         onSave({
             ...task,
             title,

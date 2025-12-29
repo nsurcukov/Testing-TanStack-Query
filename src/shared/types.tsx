@@ -1,18 +1,10 @@
-export type Task = {
-  id: string,
-  title: string,
-  description: string,
-}
-export type TaskItemProps = {
-  task: Task,
-  index: number,
-  onEdit: (task:Task) => void
-  onPreview: (id:string) => void,
-  onDelete: (id:string) => void
-}
+export type Post = {
+  id: number;
+  title: string;
+  description: string;
+};
 
-export interface TasksResponse {
-  data: Task[];
+export interface PostsPage {
+  posts: Post[];
   nextPage?: number;
-  total: number; 
 }
