@@ -15,7 +15,6 @@ import TaskEditForm from "../TaskForm/TaskFormEdit/TaskFormEdit";
 export function PostsList() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
   const {
     data,
     fetchNextPage,
@@ -37,8 +36,8 @@ export function PostsList() {
   const rowVirtualizer = useVirtualizer({
     count: allPosts.length + (hasNextPage ? 1 : 0),
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 160,
-    overscan: 10,
+    estimateSize: () => 200,
+    overscan: 5,
   });
 
   const virtualItems = rowVirtualizer.getVirtualItems();
@@ -56,12 +55,13 @@ export function PostsList() {
     }
   }, [virtualItems, allPosts.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const [editingPost, setEditingPost] = useState<Post | null>(null); 
+  const [editingPost, setEditingPost] = useState<Post | null>(null);
 
   const createMutation = useMutation({
     mutationFn: createPost,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
+
     },
   });
 
@@ -69,6 +69,7 @@ export function PostsList() {
     mutationFn: deleteTaskPost,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
+
     },
   });
 
@@ -76,7 +77,7 @@ export function PostsList() {
     mutationFn: updateTaskPost,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
-      setEditingPost(null); 
+      setEditingPost(null);
     },
   });
 
@@ -84,12 +85,12 @@ export function PostsList() {
     createMutation.mutate({ title, description });
   };
 
-  const handleDelete = (id: number) => {
-      deleteMutation.mutate(String(id));
+  const handleDelete = (id: string) => {
+    deleteMutation.mutate(String(id));
   };
 
   const handleEditStart = (post: Post) => {
-    setEditingPost(post); 
+    setEditingPost(post);
   };
 
   const handleEditSave = (updatedPost: Post) => {
@@ -100,7 +101,7 @@ export function PostsList() {
     setEditingPost(null);
   };
 
-  const handleOpenPost = (id: number) => {
+  const handleOpenPost = (id: string) => {
     navigate(`/post/${id}`);
   };
 
@@ -165,7 +166,7 @@ export function PostsList() {
 
               return (
                 <div
-                  key={post.id}
+                  key={virtualRow.key}
                   style={{
                     position: "absolute",
                     top: 0,
@@ -180,7 +181,7 @@ export function PostsList() {
                     index={virtualRow.index + 1}
                     onPreview={() => handleOpenPost(post.id)}
                     onDelete={() => handleDelete(post.id)}
-                    onEdit={() => handleEditStart(post)} 
+                    onEdit={() => handleEditStart(post)}
                   />
                 </div>
               );

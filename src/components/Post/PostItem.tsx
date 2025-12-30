@@ -6,8 +6,8 @@ interface PostItemProps {
     post: Post;
     index: number;
     onEdit: (post: Post) => void;
-    onPreview: (id: number) => void;
-    onDelete: (id: number) => void;
+    onPreview: (id: string) => void;
+    onDelete: (id: string) => void;
 }
 
 export default function PostItem({

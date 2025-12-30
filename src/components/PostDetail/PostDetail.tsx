@@ -15,7 +15,7 @@ export function PostDetail() {
   if (isLoading || !post) {
     return (
       <div className={styles.container}>
-        <div className={styles.card}>
+        <div className={styles.post}>
           Загрузка поста...
         </div>
       </div>
@@ -24,7 +24,7 @@ export function PostDetail() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.cart}>
+      <div className={styles.post}>
         <h1>{post.title}</h1>
         <p>{post.description}</p>
         <button className={styles.button} onClick={() => navigate('/')}>

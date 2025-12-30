@@ -19,6 +19,7 @@ export default function TaskForm({ onSubmit, isLoading = false }: TaskFormProps)
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.wrapper}></div>
       <input
         type="text"
         value={title}

@@ -15,12 +15,12 @@ export default function TaskEditForm({
     onCancel,
     isLoading = false
 }: TaskEditFormProps) {
-     const [title, setTitle] = useState(task.title);
+    const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description);
     if (!task) {
         return null;
     }
-   
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSave({
@@ -30,10 +30,9 @@ export default function TaskEditForm({
         });
     };
 
-
     return (
-        <form onSubmit={handleSubmit} className={`${style.form} ${style.editModal}`}>
-            <div className={style.inputGroup}>
+        <form onSubmit={handleSubmit} className={style.form} >
+            <div className={style.inputs}>
                 <input
                     className={style.input}
                     type="text"
@@ -45,21 +44,19 @@ export default function TaskEditForm({
                 />
             </div>
 
-            <div className={style.inputGroup}>
-                <textarea
-                    className={style.textarea}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Описание задачи"
-                    rows={3}
-                    disabled={isLoading}
-                />
-            </div>
+            <textarea
+                className={style.textarea}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Описание задачи"
+                rows={3}
+                disabled={isLoading}
+            />
 
-            <div className={style.editActions}>
+            <div className={style.buttons}>
                 <button
                     type="submit"
-                    className={`${style.button} ${style.saveButton}`}
+                    className={style.button}
                 >
                     Сохранить
                 </button>
@@ -67,7 +64,7 @@ export default function TaskEditForm({
                     type="button"
                     onClick={onCancel}
                     disabled={isLoading}
-                    className={`${style.button} ${style.cancelButton}`}
+                    className={style.button}
                 >
                     Отмена
                 </button>

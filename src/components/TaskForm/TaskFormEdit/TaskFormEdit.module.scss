@@ -1,41 +1,30 @@
-.editModal {
-  background-color: #ffffff;
-  padding: 24px 32px;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  width: 400px;
-  max-width: 90%;
+.form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.inputGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.textarea {
-  resize: none;
-}
-
-.editActions {
-  display: flex;
-  justify-content: center;
+  align-items: center;
   gap: 10px;
-}
+  width: 100%;
+  margin-bottom: 20px;
 
-.saveButton,
-.cancelButton {
-  border: none;
-  width: 100px;
-  height: 50px;
-  background-color: black;
-  color: #ffffff;
-}
 
-.saveButton:hover,
-.cancelButton:hover {
-  background-color: rgb(102, 91, 91);
+  .input {
+    width: 300px;
+    padding: 10px;
+  }
+
+  .textarea {
+    width: 300px;
+    padding: 10px;
+    resize: none;
+  }
+
+  .buttons{
+    display: flex;
+    gap: 10px;
+  }
+  
+  .button {
+    padding: 10px;
+    border: none;
+  }
 }
